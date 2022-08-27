@@ -18,7 +18,7 @@ inThisBuild(Seq(
   crossScalaVersions := Seq("2.13.8", "2.12.16"),
 
   githubWorkflowTargetTags ++= Seq("v*"),
-  githubWorkflowJavaVersions := Seq(JavaSpec.temurin("17.0.4.1")),
+  githubWorkflowJavaVersions := Seq(JavaSpec.temurin("17")),
   githubWorkflowPublishTargetBranches := Seq(RefPredicate.StartsWith(Ref.Tag("v"))),
 
   githubWorkflowPublish := Seq(WorkflowStep.Sbt(
