@@ -14,8 +14,9 @@ def crossSources = Def.settings(
 
 inThisBuild(Seq(
   organization := "com.github.ghik",
-  scalaVersion := "2.13.8",
-  
+  scalaVersion := crossScalaVersions.value.head,
+  crossScalaVersions := Seq("2.13.8", "2.12.16"),
+
   githubWorkflowTargetTags ++= Seq("v*"),
   githubWorkflowJavaVersions := Seq(JavaSpec.temurin("17.0.4.1")),
   githubWorkflowPublishTargetBranches := Seq(RefPredicate.StartsWith(Ref.Tag("v"))),
@@ -31,7 +32,7 @@ inThisBuild(Seq(
   )),
 ))
 
-lazy val purifier = project.in(file("."))
+lazy val zerowaste = project.in(file("."))
   .settings(
     libraryDependencies ++= Seq(
       "org.scala-lang" % "scala-compiler" % scalaVersion.value,
@@ -43,17 +44,17 @@ lazy val purifier = project.in(file("."))
     projectInfo := ModuleInfo(
       nameFormal = "Purifier",
       description = "Scala 2 compiler plugin that disallows discarding of non-Unit expressions",
-      homepage = Some(url("https://github.com/ghik/purifier")),
+      homepage = Some(url("https://github.com/ghik/zerowaste")),
       startYear = Some(2022),
       licenses = Vector(
-        "The Apache License, Version 2.0" -> url("http://www.apache.org/licenses/LICENSE-2.0.txt")
+        "The MIT License" -> url("https://opensource.org/licenses/MIT")
       ),
       organizationName = "ghik",
       organizationHomepage = Some(url("https://github.com/ghik")),
       scmInfo = Some(ScmInfo(
-        browseUrl = url("https://github.com/ghik/purifier.git"),
-        connection = "scm:git:git@github.com:ghik/purifier.git",
-        devConnection = Some("scm:git:git@github.com:ghik/purifier.git")
+        browseUrl = url("https://github.com/ghik/zerowaste.git"),
+        connection = "scm:git:git@github.com:ghik/zerowaste.git",
+        devConnection = Some("scm:git:git@github.com:ghik/zerowaste.git")
       )),
       developers = Vector(
         Developer("ghik", "Roman Janusz", "romeqjanoosh@gmail.com", url("https://github.com/ghik"))

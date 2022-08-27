@@ -1,0 +1,4 @@
+<plugin>
+    <name>zerowaste</name>
+    <classname>com.github.ghik.zerowaste.ZerowastePlugin</classname>
+</plugin>
