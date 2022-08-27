@@ -29,5 +29,9 @@ object zerowaste {
   }
 
   // should not emit warnings
-  val t = scala.reflect.runtime.universe.typeOf[Map[_, _]]
+  val t = scala.reflect.runtime.universe.typeOf[Map[_, _]] // macro
+
+  class Klas(arg: Int) {
+    def this() = this(42)
+  }
 }

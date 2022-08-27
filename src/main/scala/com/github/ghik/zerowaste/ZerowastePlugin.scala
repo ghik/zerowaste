@@ -45,7 +45,7 @@ final class ZerowastePlugin(val global: Global) extends Plugin { plugin =>
       case tree if !discarded && tree.tpe != null && tree.tpe =:= definitions.UnitTpe =>
         detectDiscarded(tree, discarded = true)
 
-      case Apply(Select(_: Super, name), args) if name == termNames.CONSTRUCTOR =>
+      case Apply(Select(_: This | _: Super, name), args) if name == termNames.CONSTRUCTOR =>
         args.foreach(detectDiscarded(_, discarded = false))
 
       case _: Ident if discarded && notUnit(tree) =>
