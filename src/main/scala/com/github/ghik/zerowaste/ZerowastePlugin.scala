@@ -23,22 +23,34 @@ final class ZerowastePlugin(val global: Global) extends Plugin { plugin =>
         detectDiscarded(unit.body, discarded = false)
     }
 
+    private def notUnit(tree: Tree): Boolean =
+      tree.tpe != null && !(tree.tpe <:< definitions.UnitTpe)
+
+    private def report(tree: Tree): Unit =
+      currentRun.reporting.warning(tree.pos, "discarded expression with non-Unit value", WarningCategory.Unused, NoSymbol)
+
+    // Note: not checking Literal, This and Function trees because the compiler already does that
     private def detectDiscarded(tree: Tree, discarded: Boolean): Unit = tree match {
       case tree if !discarded && tree.tpe != null && tree.tpe =:= definitions.UnitTpe =>
         detectDiscarded(tree, discarded = true)
 
-      case _: Ident |
-           _: Select |
-           _: Apply |
-           _: TypeApply |
-           _: Function |
-           _: New |
-           _: Super |
-           _: This |
-           _: Literal
-        if discarded && tree.tpe != null && !(tree.tpe <:< definitions.UnitTpe) =>
+      case Apply(Select(_: Super, name), args) if name == termNames.CONSTRUCTOR =>
+        args.foreach(detectDiscarded(_, discarded = false))
 
-        currentRun.reporting.warning(tree.pos, "discarded expression with non-Unit value", WarningCategory.Unused, NoSymbol)
+      case _: Ident if discarded && notUnit(tree) =>
+        report(tree)
+
+      case Select(prefix, _) if discarded && notUnit(tree) =>
+        report(tree)
+        detectDiscarded(prefix, discarded = false)
+
+      case Apply(fun, args) if discarded && notUnit(tree) =>
+        report(tree)
+        (fun :: args).foreach(detectDiscarded(_, discarded = false))
+
+      case TypeApply(fun, args) if discarded && notUnit(tree) =>
+        report(tree)
+        (fun :: args).foreach(detectDiscarded(_, discarded = false))
 
       case Block(stats, expr) =>
         stats.foreach(detectDiscarded(_, discarded = true))
