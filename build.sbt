@@ -13,7 +13,6 @@ def crossSources = Def.settings(
 )
 
 inThisBuild(Seq(
-  version := "0.1",
   organization := "com.github.ghik",
   scalaVersion := "2.13.8",
   
