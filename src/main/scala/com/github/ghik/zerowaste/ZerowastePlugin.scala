@@ -38,7 +38,7 @@ final class ZerowastePlugin(val global: Global) extends Plugin { plugin =>
            _: Literal
         if discarded && tree.tpe != null && !(tree.tpe <:< definitions.UnitTpe) =>
 
-        currentRun.reporting.warning(tree.pos, "discarded non-Unit expression", WarningCategory.Unused, NoSymbol)
+        currentRun.reporting.warning(tree.pos, "discarded expression with non-Unit value", WarningCategory.Unused, NoSymbol)
 
       case Block(stats, expr) =>
         stats.foreach(detectDiscarded(_, discarded = true))
