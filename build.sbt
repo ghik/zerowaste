@@ -1,17 +1,3 @@
-def crossSources = Def.settings(
-  unmanagedSourceDirectories ++= unmanagedSourceDirectories.value.flatMap { dir =>
-    val path = dir.getPath
-    val sv = scalaVersion.value
-    val suffixes = CrossVersion.partialVersion(sv) match {
-      case Some((2, 11)) => Seq("2.11", "2.11-12")
-      case Some((2, 12)) => Seq("2.11-12", "2.12", "2.12-13")
-      case Some((2, 13)) => Seq("2.12-13", "2.13")
-      case _ => throw new IllegalArgumentException("unsupported scala version")
-    }
-    suffixes.map(s => file(s"$path-$s"))
-  }
-)
-
 inThisBuild(Seq(
   organization := "com.github.ghik",
   scalaVersion := crossScalaVersions.value.head,
@@ -62,8 +48,6 @@ lazy val zerowaste = project.in(file("."))
     ),
 
     crossVersion := CrossVersion.full,
-    inConfig(Compile)(crossSources),
-    inConfig(Test)(crossSources),
 
     publishMavenStyle := true,
     pomIncludeRepository := { _ => false },
