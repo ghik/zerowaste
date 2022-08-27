@@ -31,6 +31,23 @@ Enable the plugin in `build.sbt`:
 libraryDependencies += compilerPlugin("com.github.ghik" % "zerowaste" % "<version>" cross CrossVersion.full)
 ```
 
+The plugin issues warnings, but it is often a good idea to turn them into compilation errors:
+
+```scala
+scalacOptions += "-Werror"
+```
+
+Note that such warnings, despite being converted to errors, can be still suppressed with the `@nowarn` annotation:
+
+```scala
+import scala.annotation.nowarn
+
+val number = {
+  discardedExpression: @nowarn("msg=discarded expression")
+  42
+}
+```
+
 ## Compatibility
 
 Zerowaste is currently available for Scala 2.12 and 2.13

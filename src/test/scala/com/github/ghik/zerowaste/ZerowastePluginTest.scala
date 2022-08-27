@@ -37,6 +37,6 @@ class ZerowastePluginTest extends AnyFunSuite {
   }
 
   test("zerowaste") {
-    testFile("zerowaste.scala", 5)
+    testFile("zerowaste.scala", 14)
   }
 }
