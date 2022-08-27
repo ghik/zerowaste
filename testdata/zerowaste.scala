@@ -3,6 +3,7 @@ object zerowaste {
   def handle(int: Int): String = int.toString
   def summon[T]: T = throw new Exception("nie")
 
+  // should emit warnings
   stuff
   new String
   "".trim
@@ -26,4 +27,7 @@ object zerowaste {
     case "" => stuff
     case _ => stuff
   }
+
+  // should not emit warnings
+  val t = scala.reflect.runtime.universe.typeOf[Map[_, _]]
 }

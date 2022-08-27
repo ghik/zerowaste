@@ -11,6 +11,14 @@ final class ZerowastePlugin(val global: Global) extends Plugin { plugin =>
   val description = "Scala compiler plugin that disallows discarding of non-Unit expressions"
   val components: List[PluginComponent] = List(component)
 
+  object MacroExpansionTree {
+    def unapply(tree: Tree): Option[Tree] =
+      analyzer.macroExpandee(tree) match {
+        case EmptyTree | `tree` => None
+        case t => Some(t)
+      }
+  }
+
   private object component extends PluginComponent {
     val global: plugin.global.type = plugin.global
     val runsAfter: List[String] = List("typer")
@@ -31,6 +39,9 @@ final class ZerowastePlugin(val global: Global) extends Plugin { plugin =>
 
     // Note: not checking Literal, This and Function trees because the compiler already does that
     private def detectDiscarded(tree: Tree, discarded: Boolean): Unit = tree match {
+      case MacroExpansionTree(tree) =>
+        detectDiscarded(tree, discarded)
+
       case tree if !discarded && tree.tpe != null && tree.tpe =:= definitions.UnitTpe =>
         detectDiscarded(tree, discarded = true)
 
