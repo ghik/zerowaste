@@ -19,6 +19,19 @@ final class ZerowastePlugin(val global: Global) extends Plugin { plugin =>
       }
   }
 
+  object Applies {
+    private def un(tree: Tree): (Tree, List[List[Tree]]) = tree match {
+      case Apply(prefix, args) =>
+        val (t, argss) = un(prefix)
+        (t, args :: argss)
+      case t =>
+        (t, Nil)
+    }
+
+    def unapply(tree: Tree): Some[(Tree, List[List[Tree]])] =
+      Some(un(tree))
+  }
+
   private object component extends PluginComponent {
     val global: plugin.global.type = plugin.global
     val runsAfter: List[String] = List("typer")
@@ -45,8 +58,8 @@ final class ZerowastePlugin(val global: Global) extends Plugin { plugin =>
       case tree if !discarded && tree.tpe != null && tree.tpe =:= definitions.UnitTpe =>
         detectDiscarded(tree, discarded = true)
 
-      case Apply(Select(_: This | _: Super, termNames.CONSTRUCTOR), args) =>
-        args.foreach(detectDiscarded(_, discarded = false))
+      case Applies(Select(_: This | _: Super, termNames.CONSTRUCTOR), argss) =>
+        argss.foreach(_.foreach(detectDiscarded(_, discarded = false)))
 
       case _: Ident if discarded && notUnit(tree) =>
         report(tree)

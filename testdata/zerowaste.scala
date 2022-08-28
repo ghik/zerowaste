@@ -34,4 +34,7 @@ object zerowaste {
   class Klas(arg: Int) {
     def this() = this(42)
   }
+
+  abstract class Base[T: scala.reflect.ClassTag]
+  class Sub extends Base[Int]
 }
