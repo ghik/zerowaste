@@ -1,7 +1,7 @@
 inThisBuild(Seq(
   organization := "com.github.ghik",
   scalaVersion := crossScalaVersions.value.head,
-  crossScalaVersions := Seq("2.13.10", "2.12.17"),
+  crossScalaVersions := Seq("3.2.1", "2.13.10", "2.12.17"),
 
   githubWorkflowTargetTags ++= Seq("v*"),
   githubWorkflowJavaVersions := Seq(JavaSpec.temurin("17")),
@@ -21,9 +21,20 @@ inThisBuild(Seq(
 lazy val zerowaste = project.in(file("."))
   .settings(
     libraryDependencies ++= Seq(
-      "org.scala-lang" % "scala-compiler" % scalaVersion.value,
+      if (scalaBinaryVersion.value == "3")
+        "org.scala-lang" %% "scala3-compiler" % scalaVersion.value
+      else
+        "org.scala-lang" % "scala-compiler" % scalaVersion.value,
       "org.scalatest" %% "scalatest-funsuite" % "3.2.13" % Test,
     ),
+
+    Compile / resourceDirectory := {
+      val base = (Compile / resourceDirectory).value
+      if (scalaBinaryVersion.value == "3")
+        base.getParentFile / s"${base.name}-3"
+      else
+        base.getParentFile / s"${base.name}-2"
+    },
 
     Test / fork := true,
 
