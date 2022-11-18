@@ -29,6 +29,8 @@ object zerowaste {
   }
 
   // should not emit warnings
+  throw new Exception("nienie")
+
   val t = com.github.ghik.zerowaste.Macro.inlinedValue // macro
 
   class Klas(arg: Int) {

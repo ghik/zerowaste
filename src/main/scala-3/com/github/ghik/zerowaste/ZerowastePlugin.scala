@@ -42,7 +42,7 @@ class ZerowastePhase extends PluginPhase {
   }
 
   private def notUnit(tree: Tree)(using Context): Boolean =
-    !(tree.tpe =:= defn.UnitType)
+    !(tree.tpe <:< defn.UnitType)
 
   private def report(tree: Tree)(using Context): Unit =
     dotty.tools.dotc.report.warning("discarded expression with non-Unit value", tree.srcPos)

@@ -1,11 +1,11 @@
 package com.github.ghik.zerowaste
 
-import org.scalatest.funsuite.AnyFunSuite
 import dotty.tools.dotc.Compiler
 import dotty.tools.dotc.core.Contexts.*
 import dotty.tools.dotc.plugins.Plugin
 import dotty.tools.io.{Path, PlainFile}
 import org.scalactic.source.Position
+import org.scalatest.funsuite.AnyFunSuite
 
 class ZerowastePluginTest extends AnyFunSuite {
   val compiler = new Compiler
