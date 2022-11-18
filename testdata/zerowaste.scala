@@ -1,3 +1,5 @@
+import com.github.ghik.zerowaste._
+
 object zerowaste {
   def stuff: Int = 42
   def handle(int: Int): String = int.toString
@@ -31,7 +33,7 @@ object zerowaste {
   // should not emit warnings
   throw new Exception("nienie")
 
-  val t = com.github.ghik.zerowaste.Macro.inlinedValue // macro
+  val t = Macro.inlinedValue // macro
 
   class Klas(arg: Int) {
     def this() = this(42)

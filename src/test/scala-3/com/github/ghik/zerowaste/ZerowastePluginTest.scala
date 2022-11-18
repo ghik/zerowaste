@@ -10,7 +10,7 @@ import org.scalatest.funsuite.AnyFunSuite
 class ZerowastePluginTest extends AnyFunSuite {
   val compiler = new Compiler
 
-  def testFile(filename: String, expectedWarnings: Int = 0)(implicit pos: Position): Unit = {
+  def testFile(filename: String, expectedWarnings: Int = 0)(using Position): Unit = {
     val ctxBase = new ContextBase {
       override protected def loadRoughPluginsList(using Context): List[Plugin] =
         new ZerowastePlugin :: Nil
@@ -25,5 +25,9 @@ class ZerowastePluginTest extends AnyFunSuite {
 
   test("zerowaste") {
     testFile("zerowaste.scala", 14)
+  }
+
+  test("Cats Effect IO") {
+    testFile("catsio.scala", 1)
   }
 }

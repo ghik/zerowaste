@@ -26,6 +26,7 @@ lazy val zerowaste = project.in(file("."))
       else
         "org.scala-lang" % "scala-compiler" % scalaVersion.value,
       "org.scalatest" %% "scalatest-funsuite" % "3.2.13" % Test,
+      "org.typelevel" %% "cats-effect" % "3.4.1" % Test,
     ),
 
     Compile / resourceDirectory := {
