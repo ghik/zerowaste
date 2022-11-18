@@ -1,6 +1,6 @@
 # Zerowaste
 
-Scala 2 compiler plugin to detect unused expressions (non-`Unit`).
+Scala compiler plugin to detect unused expressions (non-`Unit`).
 
 ## Introduction
 
