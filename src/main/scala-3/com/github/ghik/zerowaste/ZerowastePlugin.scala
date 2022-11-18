@@ -107,10 +107,11 @@ class ZerowastePhase extends PluginPhase {
         detectDiscarded(expr, discarded)
 
       case tree =>
-        tree.foreachSubTree {
-          case child if child != tree => detectDiscarded(child, discarded = false)
-          case _ =>
+        val trav = new TreeTraverser {
+          def traverse(t: Tree)(using Context): Unit =
+            detectDiscarded(t, discarded = false)
         }
+        trav.foldOver((), tree)
     }
 
     detectDiscarded(tree, discarded = false)
