@@ -29,7 +29,7 @@ object zerowaste {
   }
 
   // should not emit warnings
-  val t = scala.reflect.runtime.universe.typeOf[Map[_, _]] // macro
+  val t = com.github.ghik.zerowaste.Macro.inlinedValue // macro
 
   class Klas(arg: Int) {
     def this() = this(42)
