@@ -40,7 +40,7 @@ lazy val zerowaste = project.in(file("."))
 
     projectInfo := ModuleInfo(
       nameFormal = "Purifier",
-      description = "Scala 2 compiler plugin that disallows discarding of non-Unit expressions",
+      description = "Scala compiler plugin that disallows discarding of non-Unit expressions",
       homepage = Some(url("https://github.com/ghik/zerowaste")),
       startYear = Some(2022),
       licenses = Vector(
