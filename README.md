@@ -2,6 +2,9 @@
 
 Scala compiler plugin to detect unused expressions (non-`Unit`).
 
+> :warning: if you're using Scala 2.13 only, you can simply use its `-Wvalue-discard` compiler option. The `zerowaste` plugin comes in handy if you
+need that functionality in Scala 2.12 (which doesn't support it) or Scala 3 (which doesn't support it **yet**).
+
 ## Introduction
 
 In purely functional programming paradigm, all expressions are _pure_ - their evaluation does not cause side effects.
