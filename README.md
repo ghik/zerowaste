@@ -50,4 +50,6 @@ val number = {
 
 ## Compatibility
 
-Zerowaste is currently available for Scala 2.12, 2.13 and 3.2
+Zerowaste is currently available for Scala 2.12.17+, 2.13.10+ and 3.2.1+
+
+Compiler plugins must be cross-built for every minor and patch version of Scala. If `zerowaste` is not available for your Scala version, please file an issue or submit a PR that adds your desired Scala version to `crossScalaVersions` in `build.sbt`.
