@@ -4,8 +4,8 @@ Scala compiler plugin to detect unused expressions (non-`Unit`).
 
 ## Introduction
 
-In purely functional programming paradigm, all expressions are _pure_ - their evaluation does not cause side effects.
-Side effects are therefore expressed with an `IO`-like type (e.g. Cats Effect `IO`) and they only actually happen when
+In purely functional programming, expressions are always _pure_ - their evaluation has no side effects.
+Side effects are therefore expressed with an `IO`-like type (e.g. Cats Effect `IO`) and they only happen when
 the `IO` is run - preferably with a single, "impure" invocation hidden somewhere in library code.
 
 Because of that, in pure FP it never makes sense to discard the result of an expression, e.g.
@@ -17,11 +17,11 @@ val number = {
 }
 ```
 
-This is a very easy mistake to make which may be the cause of very tricky bugs, e.g. when the discarded expression
-is an `IO` that was supposed to do something important. The Scala compiler does not detect this mistake because Scala
-is not a purely functional language - it can rarely be sure that expressions are actually pure.
+This is an easy mistake to make and it may cause very tricky bugs, e.g. when the discarded expression
+was an `IO` that did something important. The Scala compiler does not detect this kind of mistake because Scala
+is not a purely functional language so the compiler cannot assume that all expressions are pure.
 
-This plugin fixes that by reporting a warning for all discarded expressions whose type is anything other than `Unit`.
+This plugin reports a warning for any discarded expression whose type is not `Unit`.
 
 ## Usage
 
@@ -37,7 +37,7 @@ The plugin issues warnings, but it is often a good idea to turn them into compil
 scalacOptions += "-Werror"
 ```
 
-Note that such warnings, despite being converted to errors, can be still suppressed with the `@nowarn` annotation:
+Note that these warnings, despite being converted to errors, can be suppressed with the `@nowarn` annotation:
 
 ```scala
 import scala.annotation.nowarn
