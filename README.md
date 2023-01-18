@@ -52,4 +52,11 @@ val number = {
 
 Zerowaste is currently available for Scala 2.12.17+, 2.13.10+ and 3.2.1+
 
-Compiler plugins must be cross-built for every minor and patch version of Scala. If `zerowaste` is not available for your Scala version, please file an issue or submit a PR that adds your desired Scala version to `crossScalaVersions` in `build.sbt`.
+Compiler plugins must be cross-built for every minor and patch version of Scala. If `zerowaste` is not available for your Scala version, please file an issue or submit a PR.
+
+### How to submit a PR with new Scala version
+
+#. Add your desired Scala version to `crossScalaVersions` in `build.sbt`
+#. Run `sbt githubWorkflowGenerate`
+#. Commit the changes in `build.sbt` and github workflows
+#. Submit a PR
