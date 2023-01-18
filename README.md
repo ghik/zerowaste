@@ -56,7 +56,7 @@ Compiler plugins must be cross-built for every minor and patch version of Scala.
 
 ### How to submit a PR with new Scala version
 
-#. Add your desired Scala version to `crossScalaVersions` in `build.sbt`
-#. Run `sbt githubWorkflowGenerate`
-#. Commit the changes in `build.sbt` and github workflows
-#. Submit a PR
+1. Add your desired Scala version to `crossScalaVersions` in `build.sbt`
+1. Run `sbt githubWorkflowGenerate`
+1. Commit the changes in `build.sbt` and github workflows
+1. Submit a PR
