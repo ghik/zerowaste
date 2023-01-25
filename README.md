@@ -2,6 +2,17 @@
 
 Scala compiler plugin to detect unused expressions (non-`Unit`).
 
+Zerowaste is currently available for Scala 2.12.17+, 2.13.10+ and 3.2.1+
+
+Compiler plugins must be cross-built for every minor and patch version of Scala. If `zerowaste` is not available for your Scala version, please file an issue or submit a PR.
+
+### How to submit a PR with new Scala version
+
+1. Add your desired Scala version to `crossScalaVersions` in `build.sbt`
+1. Run `sbt githubWorkflowGenerate`
+1. Commit the changes in `build.sbt` and github workflows
+1. Submit a PR
+
 ## Introduction
 
 In purely functional programming, expressions are always _pure_ - their evaluation has no side effects.
@@ -47,16 +58,3 @@ val number = {
   42
 }
 ```
-
-## Compatibility
-
-Zerowaste is currently available for Scala 2.12.17+, 2.13.10+ and 3.2.1+
-
-Compiler plugins must be cross-built for every minor and patch version of Scala. If `zerowaste` is not available for your Scala version, please file an issue or submit a PR.
-
-### How to submit a PR with new Scala version
-
-1. Add your desired Scala version to `crossScalaVersions` in `build.sbt`
-1. Run `sbt githubWorkflowGenerate`
-1. Commit the changes in `build.sbt` and github workflows
-1. Submit a PR
