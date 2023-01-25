@@ -48,8 +48,8 @@ class ZerowastePhase extends PluginPhase {
     dotty.tools.dotc.report.warning("discarded expression with non-Unit value", tree.srcPos)
 
   private def complete[T <: AnyRef](v: Lazy[T] | T)(using Context): T = v match {
-    case l: Lazy[T] => l.complete
-    case t: T => t
+    case l: Lazy[T@unchecked] => l.complete
+    case t: T@unchecked => t
   }
 
   override def transformUnit(tree: Tree)(using Context): Tree = {
@@ -81,7 +81,7 @@ class ZerowastePhase extends PluginPhase {
 
       case Template(constr, parents, self, body) =>
         detectDiscarded(constr, discarded = false)
-        parents.foreach(detectDiscarded(_, discarded = false))
+        complete(parents).foreach(detectDiscarded(_, discarded = false))
         detectDiscarded(self, discarded = false)
         complete(body).foreach(detectDiscarded(_, discarded = true))
 
