@@ -4,9 +4,9 @@ Scala compiler plugin to detect unused expressions (non-`Unit`).
 
 Zerowaste is currently available for Scala 2.12.17+, 2.13.10+ and 3.2.1+
 
-Compiler plugins must be cross-built for every minor and patch version of Scala. If `zerowaste` is not available for your Scala version, please file an issue or submit a PR.
+Compiler plugins must be cross-built for every minor and patch version of Scala. If `zerowaste` is not available for a Scala version that you want to use (most likely some freshly released one), please file an issue or submit a PR.
 
-### How to submit a PR with new Scala version
+### How to submit a PR with a new Scala version
 
 1. Add your desired Scala version to `crossScalaVersions` in `build.sbt`
 1. Run `sbt githubWorkflowGenerate`
@@ -15,11 +15,11 @@ Compiler plugins must be cross-built for every minor and patch version of Scala.
 
 ## Introduction
 
-In purely functional programming, expressions are always _pure_ - their evaluation has no side effects.
+In purely functional programming, expressions are always _pure_ - they evaluate with no side effects.
 Side effects are therefore expressed with an `IO`-like type (e.g. Cats Effect `IO`) and they only happen when
 the `IO` is run - preferably with a single, "impure" invocation hidden somewhere in library code.
 
-Because of that, in pure FP it never makes sense to discard the result of an expression, e.g.
+Because of that, it does not make sense to ever discard a result of an expression in purely functional code, e.g.
 
 ```scala
 val number = {
@@ -28,11 +28,11 @@ val number = {
 }
 ```
 
-This is an easy mistake to make and it may cause very tricky bugs, e.g. when the discarded expression
-was an `IO` that did something important. The Scala compiler does not detect this kind of mistake because Scala
+This is a very easy mistake to make. It may become a cause of some very tricky bugs, e.g. when the discarded expression
+is an `IO` that was supposed to do something important. Scala compiler does not detect these because Scala
 is not a purely functional language so the compiler cannot assume that all expressions are pure.
 
-This plugin reports a warning for any discarded expression whose type is not `Unit`.
+This plugin addresses this problem by reporting a warning for every discarded expression whose type is different than `Unit`.
 
 ## Usage
 
