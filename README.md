@@ -15,11 +15,11 @@ Compiler plugins must be cross-built for every minor and patch version of Scala.
 
 ## Introduction
 
-In purely functional programming, expressions are always _pure_ - they evaluate with no side effects.
-Side effects are therefore expressed with an `IO`-like type (e.g. Cats Effect `IO`) and they only happen when
-the `IO` is run - preferably with a single, "impure" invocation hidden somewhere in library code.
+Pure functional programming operates under the principle that expressions are free from side-effects.
+Side-effects are instead handled through an IO-like type, such as Cats Effect's IO, and are only executed upon explicit,
+unsafe `runX` invocation, usually hidden somewhere in library code.
 
-Because of that, it does not make sense to ever discard a result of an expression in purely functional code, e.g.
+As a consequence, discarding a result of an expression in purely functional code can always be assumed a mistake, e.g.
 
 ```scala
 val number = {
@@ -28,9 +28,8 @@ val number = {
 }
 ```
 
-This is a very easy mistake to make. It may become a cause of some very tricky bugs, e.g. when the discarded expression
-is an `IO` that was supposed to do something important. Scala compiler does not detect these because Scala
-is not a purely functional language so the compiler cannot assume that all expressions are pure.
+This is an easy mistake and it can lead to tricky bugs, such as when an important IO action is unintentionally discarded. 
+The Scala compiler cannot detect this issue as Scala is not a purely functional language and cannot assume all expressions are pure.
 
 This plugin addresses this problem by reporting a warning for every discarded expression whose type is different than `Unit`.
 
