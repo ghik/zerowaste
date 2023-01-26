@@ -19,7 +19,7 @@ Pure functional programming operates under the principle that expressions are fr
 Side-effects are instead handled through an IO-like type, such as Cats Effect's IO, and are only executed upon explicit,
 unsafe `runX` invocation, usually hidden somewhere in library code.
 
-As a consequence, discarding a result of an expression in purely functional code can always be assumed a mistake, e.g.
+As a consequence, discarding a result of an expression in purely functional code can always be assumed to be a mistake, e.g.
 
 ```scala
 val number = {
