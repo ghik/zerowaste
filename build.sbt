@@ -1,7 +1,7 @@
 inThisBuild(Seq(
   organization := "com.github.ghik",
   scalaVersion := crossScalaVersions.value.head,
-  crossScalaVersions := Seq("3.3.1-RC1", "3.3.0", "3.2.2", "3.2.1", "2.13.10", "2.12.17"),
+  crossScalaVersions := Seq("3.3.1-RC1", "3.3.0", "3.2.2", "3.2.1", "2.13.10", "2.13.11", "2.12.17"),
 
   githubWorkflowTargetTags ++= Seq("v*"),
   githubWorkflowJavaVersions := Seq(JavaSpec.temurin("17")),
