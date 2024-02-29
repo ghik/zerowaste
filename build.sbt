@@ -3,10 +3,10 @@ inThisBuild(Seq(
   scalaVersion := crossScalaVersions.value.head,
   crossScalaVersions := Seq(
     "3.4.1-RC1", "3.4.0",
-    "3.3.2", "3.3.1", "3.3.0",
+    "3.3.3", "3.3.2", "3.3.1", "3.3.0",
     "3.2.2", "3.2.1",
     "2.13.10", "2.13.11", "2.13.12", "2.13.13",
-    "2.12.17", "2.12.18"
+    "2.12.17", "2.12.18", "2.12.19"
   ),
 
   githubWorkflowTargetTags ++= Seq("v*"),
