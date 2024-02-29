@@ -2,7 +2,7 @@
 
 Scala compiler plugin to detect unused expressions (non-`Unit`).
 
-Zerowaste is currently available for Scala 2.12.17+, 2.13.10+ and 3.2.1+
+Zerowaste is currently available for Scala 2.12.17+, 2.13.10+, 3.2.1+, 3.3.0+, and 3.4.0+
 
 Compiler plugins must be cross-built for every minor and patch version of Scala. If `zerowaste` is not available for a Scala version that you want to use (most likely some freshly released one), please file an issue or submit a PR.
 
@@ -28,7 +28,7 @@ val number = {
 }
 ```
 
-This is an easy mistake and it can lead to tricky bugs, such as when an important IO action is unintentionally discarded. 
+This is an easy mistake and it can lead to tricky bugs, such as when an important IO action is unintentionally discarded.
 The Scala compiler cannot detect this issue as Scala is not a purely functional language and cannot assume all expressions are pure.
 
 This plugin addresses this problem by reporting a warning for every discarded expression whose type is different than `Unit`.
