@@ -1,5 +1,7 @@
 *.class
+*.tasty
 *.log
+*~
 
 .bsp
 .idea
