@@ -15,7 +15,7 @@ class ZerowastePlugin extends StandardPlugin {
   def name = "zerowaste"
   def description = "Scala compiler plugin that disallows discarding of non-Unit expressions"
 
-  def init(options: List[String]): List[PluginPhase] =
+  override def init(options: List[String]): List[PluginPhase] =
     new ZerowastePhase :: Nil
 }
 
