@@ -23,7 +23,15 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest]
-        scala: [3.6.4, 3.5.2, 3.4.3, 3.3.4, 3.2.2, 2.13.16, 2.12.20]
+        scala:
+          - 3.6.4
+          - 3.5.2
+          - 3.4.3
+          - 3.3.4
+          - 3.3.5
+          - 3.2.2
+          - 2.13.16
+          - 2.12.20
         java: [temurin@17]
     runs-on: ${{ matrix.os }}
     steps:
@@ -121,6 +129,16 @@ jobs:
           name: target-${{ matrix.os }}-3.3.4-${{ matrix.java }}
 
       - name: Inflate target directories (3.3.4)
+        run: |
+          tar xf targets.tar
+          rm targets.tar
+
+      - name: Download target directories (3.3.5)
+        uses: actions/download-artifact@v4
+        with:
+          name: target-${{ matrix.os }}-3.3.5-${{ matrix.java }}
+
+      - name: Inflate target directories (3.3.5)
         run: |
           tar xf targets.tar
           rm targets.tar
