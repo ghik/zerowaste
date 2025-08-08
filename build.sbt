@@ -65,5 +65,4 @@ lazy val zerowaste = project.in(file("."))
 
     publishMavenStyle := true,
     pomIncludeRepository := { _ => false },
-    publishTo := sonatypePublishToBundle.value,
   )
