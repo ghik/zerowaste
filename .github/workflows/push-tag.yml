@@ -21,6 +21,12 @@ jobs:
         with:
           fetch-depth: 0
 
+      - name: Authenticate remote with PAT
+        env:
+          TOKEN: ${{ secrets.ACTIONS_GH_TOKEN }}
+        run: |
+          git remote set-url origin "https://x-access-token:${TOKEN}@github.com/${{ github.repository }}.git"
+
       - name: Create and push tag
         run: |
           TAG_NAME="${{ github.event.inputs.tag_name }}"
