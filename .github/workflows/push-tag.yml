@@ -1,0 +1,25 @@
+name: Push Tag
+
+on:
+  workflow_dispatch:
+    inputs:
+      tag_name:
+        description: The tag to push
+        required: true
+        type: string
+
+jobs:
+  push-tag:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Create and push tag
+        run: |
+          TAG_NAME="${{ github.event.inputs.tag_name }}"
+          git tag -a "$TAG_NAME"
+          git push origin "$TAG_NAME"
