@@ -2,7 +2,7 @@ inThisBuild(Seq(
   organization := "com.github.ghik",
   scalaVersion := crossScalaVersions.value.head,
   crossScalaVersions := Seq(
-    "3.7.3", "3.7.2", "3.7.1", "3.7.0", "3.6.4", "3.5.2", "3.4.3", "3.3.4", "3.3.5", "3.3.6", "3.2.2", "2.13.16", "2.12.20",
+    "3.7.3", "3.7.2", "3.7.1", "3.7.0", "3.6.4", "3.5.2", "3.4.3", "3.3.4", "3.3.5", "3.3.6", "3.2.2", "2.13.16", "2.13.17", "2.12.20",
   ),
 
   githubWorkflowTargetTags ++= Seq("v*"),
