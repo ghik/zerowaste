@@ -16,7 +16,7 @@ class ZerowastePluginTest extends AnyFunSuite {
         new ZerowastePlugin :: Nil
     }
     given ctx: Context = ctxBase.initialCtx
-    ctx.settings.usejavacp.update(true)
+    ctx.settings.Yusejavacp.update(true)
 
     val run = compiler.newRun
     run.compile(List(PlainFile(Path(s"testdata/$filename"))))
