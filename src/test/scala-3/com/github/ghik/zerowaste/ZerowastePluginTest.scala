@@ -1,6 +1,7 @@
 package com.github.ghik.zerowaste
 
 import dotty.tools.dotc.Compiler
+import dotty.tools.dotc.config.Settings.Setting
 import dotty.tools.dotc.core.Contexts.*
 import dotty.tools.dotc.plugins.Plugin
 import dotty.tools.io.{Path, PlainFile}
@@ -16,7 +17,10 @@ class ZerowastePluginTest extends AnyFunSuite {
         new ZerowastePlugin :: Nil
     }
     given ctx: Context = ctxBase.initialCtx
-    ctx.settings.Yusejavacp.update(true)
+
+    // scala < 3.8.0 has `-usejavacp` and >= 3.8.0 has `-Yusejavacp`
+    val setting = ctx.settings.allSettings.find(s => List("-Yusejavacp", "-usejavacp").contains(s.name))
+    setting.foreach(_.asInstanceOf[Setting[Boolean]].update(true))
 
     val run = compiler.newRun
     run.compile(List(PlainFile(Path(s"testdata/$filename"))))
