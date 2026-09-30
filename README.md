@@ -57,3 +57,43 @@ val number = {
   42
 }
 ```
+
+## Custom discardable types
+
+By default, only expressions of type `Unit` may be discarded. You can extend this to other types
+(e.g. ScalaTest's `Assertion`, or your own `Done`/`Ack`-like types) by listing them in a file:
+
+```
+# zerowaste-discardable.txt
+# One type per line. Blank lines and lines starting with `#` or `//` are ignored.
+org.scalatest.Assertion
+com.example.Ack
+com.example.Result[Unit]
+```
+
+and passing that file to the plugin with the `discardable` option:
+
+```scala
+scalacOptions += s"-P:zerowaste:discardable=${baseDirectory.value / "zerowaste-discardable.txt"}"
+```
+
+Every type is written using regular Scala type syntax and is resolved as if it appeared in a Scala source file
+without a package declaration. This means that fully qualified names must be used, except for names available
+through root imports (`scala._`, `java.lang._` and `scala.Predef._`), e.g. `Option[Unit]`.
+Types may refer to classes on the compilation classpath as well as classes defined in the sources being compiled.
+
+Discardability is checked with a subtype test, so every subtype of a listed type is also discardable
+(e.g. listing `Option[Unit]` also makes `Some[Unit]` and `None.type` discardable). Types which are not resolvable,
+or which are not fully applied (e.g. `Option` instead of `Option[Unit]`), are reported as compilation errors.
+
+Multiple files can be combined, either by separating their paths with the platform path separator
+(`:` on Unix, `;` on Windows, i.e. `java.io.File.pathSeparator`) or by repeating the option:
+
+```scala
+scalacOptions += s"-P:zerowaste:discardable=${file("common.txt")}${java.io.File.pathSeparator}${file("project-specific.txt")}"
+// or
+scalacOptions ++= Seq("-P:zerowaste:discardable=common.txt", "-P:zerowaste:discardable=project-specific.txt")
+```
+
+Note that file paths must not contain a comma, because the compiler splits plugin options on commas.
+

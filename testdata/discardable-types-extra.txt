@@ -1,0 +1,2 @@
+# additional discardable types, used to test combining multiple files
+com.github.ghik.zerowaste.Extra

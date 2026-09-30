@@ -1,0 +1,8 @@
+# Types treated as discardable by the zerowaste plugin, one per line.
+# A type is resolved as if it was written in a Scala source file without a package declaration.
+
+com.github.ghik.zerowaste.Discardable
+com.github.ghik.zerowaste.Wrapper[Unit]
+
+// names from root imports (scala._, java.lang._, scala.Predef._) work too
+Option[Unit]
